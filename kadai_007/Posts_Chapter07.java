@@ -36,6 +36,8 @@ public class Posts_Chapter07 {
             String sqlUpdate = "INSERT INTO posts(user_id, posted_at, post_content, likes) VALUES(?, ?, ?, ?);";
             statement = con.prepareStatement(sqlUpdate);
             
+            System.out.println("レコード追加を実行します");
+            
             // リストの1行目から順番に読み込む
             int rowCnt = 0;
             for(int i = 0; i < posts.length; i++) {
@@ -44,12 +46,13 @@ public class Posts_Chapter07 {
             	statement.setString(2, posts[i][1]);
             	statement.setString(3, posts[i][2]);
             	statement.setString(4, posts[i][3]);
+            	// SQLクエリを実行
+            	statement.executeUpdate();
+            	// 追加した行数のカウント
+            	rowCnt++;
             }
-            // SQLクエリを実行
-            System.out.println("レコード追加を実行します");
-            rowCnt = statement.executeUpdate();
             System.out.println(rowCnt + "件のレコードが追加されました");
-            
+        
             // 再度SQLクエリを準備
             state = con.createStatement();
             String sqlAcq = "SELECT * FROM posts WHERE user_id = 1002;";
